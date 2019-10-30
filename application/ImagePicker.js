@@ -33,7 +33,7 @@ export default class ImagePickerExample extends React.Component {
     })
 
     if (!result.cancelled) {
-      this.setState({ image: result.uri });
+      this.setState({ image: result.uri })
 
       fetch('https://us-central1-mobile-lab10.cloudfunctions.net/uploadImage', {
         method: 'POST',

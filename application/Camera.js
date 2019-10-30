@@ -42,31 +42,22 @@ export default class App extends React.Component {
     })
   }
 
-  swapFlashMode() {
-    if (this.state.flashMode === 'off') this.setState({ flashMode: 'on' })
-    else this.setState({ flashMode: 'off' })
-  }
+  swapFlashMode() { this.setState({ flashMode: this.state.flashMode === 'on' ? 'off' : 'on' }) }
 
-  swapFaceDetector() {
-    if (this.state.faceDetecting === false) this.setState({ faceDetecting: true })
-    else this.setState({ faceDetecting: false })
-  }
+  swapFaceDetector() { this.setState({ faceDetecting: !this.state.faceDetecting }) }
 
   takePhoto = async () => {
     if (this.refs.camera) {
       let photo = await this.refs.camera.takePictureAsync()
-      // Alert.alert(photo.uri)
 
       CameraRoll.saveToCameraRoll(photo.uri).then(() => Alert.alert('already save to camera roll'))
     }
   }
 
   startRecordVideo = async () => {
-    await this.setState({ faceDetecting: false })
+    this.setState({ faceDetecting: false })
     if (this.refs.camera) {
-      this.setState({ 
-        videoRecording: true
-      })
+      this.setState({ videoRecording: true })
       let video = await this.refs.camera.recordAsync();
       
       CameraRoll.saveToCameraRoll(video.uri).then(() => Alert.alert('already save to camera roll'))
